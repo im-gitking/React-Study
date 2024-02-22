@@ -1,55 +1,74 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import css from "./AddTodo.module.css";
+import { CgAddR } from "react-icons/cg";
 
 function AddTodo({ handleNewItem }) {
-  const [todoName, setTodoName] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  // const [todoName, setTodoName] = useState("");
+  // const [dueDate, setDueDate] = useState("");
 
-  const handNameChange = (event) => {
-    setTodoName(event.target.value);
-  };
-  const handDateChange = (event) => {
-    setDueDate(event.target.value);
-  };
+  const todoNameElement = useRef();
+  const todoDateElement = useRef();
 
-  const handleOnButtonClicked = () => {
+  // const noOfUpdates = useRef(0);
+
+  // const handNameChange = (event) => {
+  //   setTodoName(event.target.value);
+  //   noOfUpdates.current += 1;
+  // };
+  // const handDateChange = (event) => {
+  //   setDueDate(event.target.value);
+  //   console.log(`noOfUpdates are: ${noOfUpdates.current}`);
+  // };
+
+  const handleOnButtonClicked = (event) => {
+    // console.log(event);
+    event.preventDefault();
+    // handleNewItem(todoName, dueDate);
+    // setDueDate("");
+    // setTodoName("");
+
+    const todoName = todoNameElement.current.value;
+    const dueDate = todoDateElement.current.value;
+
+    // console.log(`${todoName} due on: ${dueDate}`);
     handleNewItem(todoName, dueDate);
-    setDueDate("");
-    setTodoName("");
+    todoNameElement.current.value = "";
+    todoDateElement.current.value = "";
   };
 
   return (
     <div className="container">
-      <div className={`row ${css["kg-row"]}`}>
+      <form className={`row ${css["kg-row"]}`} onSubmit={handleOnButtonClicked}>
         <div className="col-6">
           <input
             type="text"
+            ref={todoNameElement}
             name=""
             id=""
             placeholder="Enter Todo Here"
-            onChange={handNameChange}
-            value={todoName}
+            // onChange={handNameChange}
+            // value={todoName}
           />
         </div>
         <div className="col-4">
           <input
             type="date"
+            ref={todoDateElement}
             name=""
             id=""
-            value={dueDate}
-            onChange={handDateChange}
+            // value={dueDate}
+            // onChange={handDateChange}
           />
         </div>
         <div className="col-2">
           <button
-            type="button"
+            type="submit"
             className={`btn btn-success ${css["kg-button"]}`}
-            onClick={handleOnButtonClicked}
           >
-            Add
+            <CgAddR />
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
