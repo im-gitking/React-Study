@@ -3,6 +3,7 @@ import AddTodo from "./components/AddTodo";
 import TodoItems from "./components/TodoItems";
 import { useState } from "react";
 import WelcomeMessage from "./components/WelcomeMessage";
+import { TodoItemsContext } from "./store/todo-items-store";
 
 function App() {
   // const initialTodoItems = [
@@ -22,7 +23,7 @@ function App() {
 
   const [todoItems, setTodoItems] = useState([]);
 
-  const onNewItem = (itemName, itemDueDate) => {
+  const addNewItem = (itemName, itemDueDate) => {
     // console.log(`New Item Added: ${itemName} Date: ${itemDueDate}`);
     /*const newTodoItems = [
       ...todoItems,
@@ -47,19 +48,38 @@ function App() {
     ]);
   };
 
-  const handleDeleteButton = (todoItemName) => {
+  const deleteItem = (todoItemName) => {
     const newTodoItems = todoItems.filter((todo) => todo.name !== todoItemName);
     setTodoItems(newTodoItems);
     console.log(`Item Deleted: ${todoItemName}`);
   };
 
+  // const defaultTodoItems = [{ name: "Buy Ghee", dueDate: "Today" }];
+
   return (
-    <center className="todo-container">
-      <AppName />
-      <AddTodo handleNewItem={onNewItem} />
-      {todoItems.length === 0 && <WelcomeMessage></WelcomeMessage>}
-      <TodoItems todoItems={todoItems} onDeleteClick={handleDeleteButton} />
-    </center>
+    <TodoItemsContext.Provider
+      // value={{
+      //   todoItems: todoItems,
+      //   addNewItem: addNewItem,
+      //   deleteItem: deleteItem,
+      // }}
+      value={{
+        todoItems,
+        addNewItem,
+        deleteItem,
+      }}
+    >
+      <center className="todo-container">
+        <AppName />
+        {/* <AddTodo handleNewItem={addNewItem} /> */}
+        <AddTodo />
+        {/* {todoItems.length === 0 && <WelcomeMessage></WelcomeMessage>} */}
+        <WelcomeMessage></WelcomeMessage>
+        {/* <TodoItems todoItems={todoItems} onDeleteClick={handleDeleteButton} /> */}
+        {/* <TodoItems onDeleteClick={handleDeleteButton} /> */}
+        <TodoItems />
+      </center>
+    </TodoItemsContext.Provider>
   );
 }
 

@@ -1,10 +1,15 @@
 import { useState, useRef } from "react";
 import css from "./AddTodo.module.css";
 import { CgAddR } from "react-icons/cg";
+import { TodoItemsContext } from "../store/todo-items-store";
+import { useContext } from "react";
 
-function AddTodo({ handleNewItem }) {
+// function AddTodo({ handleNewItem }) {
+function AddTodo() {
   // const [todoName, setTodoName] = useState("");
   // const [dueDate, setDueDate] = useState("");
+
+  const { addNewItem } = useContext(TodoItemsContext);
 
   const todoNameElement = useRef();
   const todoDateElement = useRef();
@@ -31,7 +36,7 @@ function AddTodo({ handleNewItem }) {
     const dueDate = todoDateElement.current.value;
 
     // console.log(`${todoName} due on: ${dueDate}`);
-    handleNewItem(todoName, dueDate);
+    addNewItem(todoName, dueDate);
     todoNameElement.current.value = "";
     todoDateElement.current.value = "";
   };
