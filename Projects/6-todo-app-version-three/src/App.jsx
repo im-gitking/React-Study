@@ -3,7 +3,9 @@ import AddTodo from "./components/AddTodo";
 import TodoItems from "./components/TodoItems";
 import { useState, useReducer } from "react";
 import WelcomeMessage from "./components/WelcomeMessage";
-import { TodoItemsContext } from "./store/todo-items-store";
+import TodoItemsContextProvider, {
+  TodoItemsContext,
+} from "./store/todo-items-store";
 
 // const todoItemsReducer = (currentTodoItems, action) => {
 //   let newTodoItems = currentTodoItems;
