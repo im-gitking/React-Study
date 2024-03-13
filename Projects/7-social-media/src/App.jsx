@@ -9,7 +9,7 @@ import { useState } from "react";
 import PostListenerProvider from "./store/post-list-store";
 
 function App() {
-  const [selectedTab, setSetectedTab] = useState("Create Post");
+  const [selectedTab, setSetectedTab] = useState("Home");
 
   return (
     <PostListenerProvider>
